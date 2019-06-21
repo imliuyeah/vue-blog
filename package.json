@@ -1,0 +1,42 @@
+{
+  "name": "myBlog",
+  "version": "1.0.0",
+  "description": "采用vue框架搭建的个人博客",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --open --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imliuyeah/myBlog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imliuyeah/myBlog/issues"
+  },
+  "homepage": "https://github.com/imliuyeah/myBlog#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-component": "^1.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^2.0.0",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "dependencies": {
+    "element-ui": "^2.9.2",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6"
+  }
+}
