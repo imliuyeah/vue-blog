@@ -1,8 +1,10 @@
 <template>
   <div> 
-    <router-view name="Sidebar"></router-view>     
-    <router-view></router-view>
-    <router-view name="Article"></router-view>
+    <router-view name="Header"></router-view>
+    <div class="banner">
+      <router-view name="Sidebar"></router-view>     
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -19,8 +21,7 @@ export default {
 	-webkit-box-sizing:border-box;/*为了兼容低版本的web*/
   }
   body{
-    padding: 0 10%;
-    font-size:12px;
+    font-size:62.5%;
     font-family:Arial,Verdana,Tahoma,"微软雅黑","黑体";
     line-height:120%;
     background:#f5f7f9;
@@ -77,5 +78,9 @@ export default {
   }
   /*兼容ie浏览器*/
   table{border-collapse:collapse;}
+  
+  .banner {
+    padding: 0 10%;
+  }
 </style>
 
