@@ -4,7 +4,6 @@
     <div class="sidebar-menu">
       <el-menu
         :default-active="$route.path"
-        class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
         background-color="#515a6e"
@@ -75,11 +74,17 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (min-width: 800px){
   .sidebar {
     float: left;
-    height: 1500px;
     width: 250px;
   }
+}
+@media screen and (max-width: 800px){
+  .sidebar {
+    display: none;
+  }
+}
   .sidebar-logo{
     display: block;
     margin-bottom: 8px;

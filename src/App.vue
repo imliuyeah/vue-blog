@@ -21,7 +21,7 @@ export default {
 	-webkit-box-sizing:border-box;/*为了兼容低版本的web*/
   }
   body{
-    font-size:62.5%;
+    font-size:12px;
     font-family:Arial,Verdana,Tahoma,"微软雅黑","黑体";
     line-height:120%;
     background:#f5f7f9;
@@ -79,8 +79,10 @@ export default {
   /*兼容ie浏览器*/
   table{border-collapse:collapse;}
   
-  .banner {
-    padding: 0 10%;
+  @media screen and (min-width: 800px){
+    .banner {
+      padding: 0 10%;
+    } 
   }
 </style>
 
