@@ -1,9 +1,11 @@
 <template>
   <div class="header">
-    <div class="header-logo el-icon-s-flag"></div>
-    <ul class="header-nav">
-      <li class="header-nav-items el-icon-s-home">登录</li>
-      <li class="header-nav-items el-icon-set-up">管理</li>
+    <div class="header-title">
+      <h1>MyBlog</h1>  
+    </div>
+    <ul class="header-fun">
+      <li class="header-fun-items el-icon-user-solid">登录</li>
+      <li class="header-fun-items el-icon-set-up">管理</li>
     </ul>
     <div class="header-dropdown" @click.prevent="handleClick">
       <i class="el-icon-s-operation"></i>
@@ -31,7 +33,7 @@
               <span slot="title">分类</span>
             </el-menu-item>
             <el-menu-item index="/about">
-              <i class="el-icon-s-custom"></i>
+              <i class="el-icon-info"></i>
               <span slot="title">关于</span>
             </el-menu-item>
           </el-menu>
@@ -73,7 +75,7 @@ export default {
       background: #515a6e;
       color: #fff;
     }
-    .header-nav {
+    .header-fun {
       display: none;
     }
   }
@@ -93,18 +95,18 @@ export default {
     line-height: 64px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .08);
   }
-  .header-logo {
+  .header-title {
     float: left;
     height: 100%;
     padding-left: 5%;
     line-height: 64px;
-    font-size: 30px;
+    font-size: 18px;
   }
-  .header-nav {
+  .header-fun {
     float: right;
     padding-right: 5%;
   }
-  .header-nav-items {
+  .header-fun-items {
     float: left;
     padding: 0 20px;
     line-height: 64px;
@@ -128,7 +130,7 @@ export default {
     bottom: 0;
     right: 0;
     height: 100%;
-    width: 220px;
+    width: 200px;
     padding-top: 64px; 
     background: #515a6e;
     opacity: .95;

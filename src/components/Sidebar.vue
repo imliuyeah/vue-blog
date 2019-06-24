@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <span class="sidebar-logo">生生</span>
+    <p class="sidebar-des">Hello World</p>
     <div class="sidebar-menu">
       <el-menu
         :default-active="$route.path"
@@ -23,7 +23,7 @@
           <span slot="title">分类</span>
         </el-menu-item>
         <el-menu-item index="/about">
-          <i class="el-icon-s-custom"></i>
+          <i class="el-icon-info"></i>
           <span slot="title">关于</span>
         </el-menu-item>
       </el-menu>
@@ -85,12 +85,11 @@ export default {
     display: none;
   }
 }
-  .sidebar-logo{
-    display: block;
+  .sidebar-des{
     margin-bottom: 8px;
     line-height: 80px;
     text-align: center;
-    font-size: 26px;
+    font-size: 20px;
     color: aliceblue;
     background: #515a6e;
     border-right: solid 1px #e6e6e6;

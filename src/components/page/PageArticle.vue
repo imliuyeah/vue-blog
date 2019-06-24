@@ -1,10 +1,14 @@
 <template>
   <div class="article">
     <ul class="article-list">
-      <li class="article-list-items">
-        <h1>我的文章</h1>
-        <span>发表于</span>
-        <p>我是文章的内容我是文章的内容我是文章的内容我是文章的内容我是文章的内容</p>
+      <li class="article-list-items" v-for="items in list" :key="items.id">
+        <h2 class="article-title">{{items.title}}</h2>
+        <span class="article-date el-icon-date">发表日期 {{items.date}}</span>
+        <div class="article-content">
+          <p class="article-desc">{{items.desc}}
+          </p>
+        </div>
+        <router-link to="#" class="article-more">阅读更多 >></router-link>
       </li>
     </ul>
   </div>
@@ -12,7 +16,27 @@
 
 <script>
 export default {
-  name: 'PageArticle'
+  name: 'PageArticle',
+  data(){
+    return {
+      list: []
+    }
+  },
+  mounted(){
+    this.getArticle()
+  },
+  methods: {
+    getArticle () {
+      this.$http.get('article.json')
+                .then(this.getArticleSucc)
+    },
+    getArticleSucc (res) {
+      res = res.data
+      if(res.ret && res.data) {
+        this.list = res.data
+      }
+    }
+  }
 }
 </script>
 
@@ -24,17 +48,51 @@ export default {
     text-align: center;
   }
   .article-list-items {
-    height: 300px;
+    position: relative;
+    height: 250px;
+    padding: 10px 20px;
     margin-bottom: 10px;
-    line-height: 64px;
     border-radius: 6px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .08);
   }
+  .article-title {
+    line-height: 58px;
+    font-size: 26px;
+  }
+  .article-date {
+    line-height: 20px;
+    color: #888;
+  }
+  .article-content {
+    overflow: hidden;
+    height: 100px;
+    padding: 20px 0 0 0;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .article-more {
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+    display: block;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 15px;
+    line-height: 25px;
+    text-align: center;
+    background: #515a6e;
+    color: #fff;
+    opacity: .8;
+  }
+  .article-more:hover {
+    opacity: 1;
+  }
+  
   @media screen and (max-width: 800px){
     .article {
       width: 100%;
       margin-left: 0px;
-      padding: 74px 20px 20px 20px; 
+      padding: 74px 20px 0 20px; 
     }
   }
 </style>
