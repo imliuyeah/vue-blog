@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import Header from '../components/Header.vue'
-import Sidebar from '../components/Sidebar.vue'
-import PageHome from '../components/page/PageHome.vue'
-import PageArticle from '../components/page/PageArticle.vue'
-import PageAbout from '../components/page/PageAbout.vue'
+
+import Home from '../components/contents/Home.vue'
+import About from '../components/contents/About.vue'
+import Article from '../components/contents/Article.vue'
+import Archive from '../components/contents/Archive.vue'
+import ArticleDetail from '../components/articles/ArticleDetail.vue'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -15,20 +16,24 @@ Vue.http.options.root = '/static/mock';
 const router = new VueRouter({
   routes: [
     {
-      path: '/',
-      components: { default: PageHome, Header: Header, Sidebar: Sidebar }
-    },
-    { 
-      path: '/article', 
-      components: { default: PageArticle, Sidebar: Sidebar, Header: Header } 
+      path: '/about',
+      component: About
     },
     {
-      path: '/classify', 
-      components: { default: PageArticle, Sidebar: Sidebar, Header: Header } 
+      path: '/article',
+      component: Article
     },
     {
-      path: '/about', 
-      components: { default: PageAbout, Sidebar: Sidebar, Header: Header } 
+      path: '/article/:id',
+      component: ArticleDetail
+    },
+    {
+      path: '/archive',
+      component: Archive
+    },
+    {
+      path: '/home',
+      component: Home
     }
   ]
 })

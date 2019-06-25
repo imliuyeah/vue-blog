@@ -1,22 +1,24 @@
 <template>
-  <div class="article">
     <ul class="article-list">
       <li class="article-list-items" v-for="items in list" :key="items.id">
         <h2 class="article-title">{{items.title}}</h2>
         <span class="article-date el-icon-date">发表日期 {{items.date}}</span>
         <div class="article-content">
-          <p class="article-desc">{{items.desc}}
-          </p>
+          <p class="article-desc">{{items.desc}}</p>
         </div>
-        <router-link to="#" class="article-more">阅读更多 >></router-link>
+        <span 
+         :to="'article/'+items.id" 
+         class="article-detail"
+         @click="goArticleDetail(items.id)">
+         阅读更多 >>
+        </span>
       </li>
     </ul>
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'PageArticle',
+  name: 'Article',
   data(){
     return {
       list: []
@@ -26,25 +28,24 @@ export default {
     this.getArticle()
   },
   methods: {
-    getArticle () {
-      this.$http.get('article.json')
-                .then(this.getArticleSucc)
+    getArticle(){
+      this.$http.get('article.json').then(this.getArticleSucc)
     },
-    getArticleSucc (res) {
+    getArticleSucc(res){
       res = res.data
       if(res.ret && res.data) {
         this.list = res.data
       }
+    },
+    goArticleDetail(id){
+      this.$router.push("/article/" + id)
     }
   }
 }
 </script>
 
 <style scoped>
-  .article {
-    margin-left: 260px;
-    background: #fff;
-    border-radius: 6px;
+  .article-list {
     text-align: center;
   }
   .article-list-items {
@@ -70,7 +71,7 @@ export default {
     font-size: 16px;
     line-height: 20px;
   }
-  .article-more {
+  .article-detail {
     position: absolute;
     right: 30px;
     bottom: 20px;
@@ -83,16 +84,9 @@ export default {
     background: #515a6e;
     color: #fff;
     opacity: .8;
+    cursor: pointer;
   }
   .article-more:hover {
     opacity: 1;
-  }
-  
-  @media screen and (max-width: 800px){
-    .article {
-      width: 100%;
-      margin-left: 0px;
-      padding: 74px 20px 0 20px; 
-    }
   }
 </style>

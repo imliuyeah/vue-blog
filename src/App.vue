@@ -1,16 +1,24 @@
 <template>
-  <div> 
-    <router-view name="Header"></router-view>
+  <div>
+    <home-header></home-header>
     <div class="banner">
-      <router-view name="Sidebar"></router-view>     
-      <router-view></router-view>
+      <home-sidebar></home-sidebar>
+      <home-content></home-content>
     </div>
   </div>
 </template>
 
 <script>
+import HomeHeader from './components/Header.vue'
+import HomeSidebar from './components/Sidebar.vue'
+import HomeContent from './components/Content.vue'
+
 export default {
-  
+  components: {
+    HomeHeader,
+    HomeSidebar,
+    HomeContent
+  }
 }
 </script>
 
@@ -81,6 +89,9 @@ export default {
   
   @media screen and (min-width: 800px){
     .banner {
+      display: flex;
+      align-items: flex-start;
+      height: 1000px;
       padding: 0 10%;
     } 
   }

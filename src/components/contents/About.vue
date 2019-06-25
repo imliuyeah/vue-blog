@@ -29,15 +29,11 @@
 
 <script>
 export default {
-  name: 'PageAbout'
+  name: 'About'
 }
 </script>
 
 <style scoped>
-  .about {
-    margin-left: 260px;
-    line-height: 24px;
-  }
   .about-content {
     padding: 20px;
     background: #fff;
@@ -54,11 +50,4 @@ export default {
     line-height: 25px;
     font-size: 15px;
   }
-  @media screen and (max-width: 800px){
-  .about {
-    width: 100%;
-    padding: 74px 20px 20px 20px; 
-    margin-left: 0px;
-  }
-}
 </style>

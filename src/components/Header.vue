@@ -3,16 +3,15 @@
     <div class="header-title">
       <h1>MyBlog</h1>  
     </div>
-    <ul class="header-fun">
-      <li class="header-fun-items el-icon-user-solid">登录</li>
-      <li class="header-fun-items el-icon-set-up">管理</li>
+    <ul class="header-func">
+      <li class="header-func-items el-icon-user-solid">登录</li>
     </ul>
     <div class="header-dropdown" @click.prevent="handleClick">
       <i class="el-icon-s-operation"></i>
       <transition name="fade">
         <div class="dropdown-nav" v-show="show">
           <el-menu
-            :default-active="$route.path"
+            :default-active="this.$route.path"
             class="el-menu-vertical"
             @open="handleOpen"
             @close="handleClose"
@@ -20,21 +19,12 @@
             text-color="#fff"
             active-text-color="#ffd04b"
             router>
-            <el-menu-item index="/">
-              <i class="el-icon-s-home"></i>
-              <span slot="title">首页</span>
-            </el-menu-item>
-            <el-menu-item index="/article">
-              <i class="el-icon-s-order"></i>
-              <span slot="title">文章</span>
-            </el-menu-item>
-            <el-menu-item index="/classify">
-              <i class="el-icon-s-grid"></i>
-              <span slot="title">分类</span>
-            </el-menu-item>
-            <el-menu-item index="/about">
-              <i class="el-icon-info"></i>
-              <span slot="title">关于</span>
+            <el-menu-item 
+             v-for="(item, index) in nav" 
+             :index="item.path" 
+             :key="index">
+              <i :class="item.class"></i>
+              <span slot="title">{{item.title}}</span>
             </el-menu-item>
           </el-menu>
         </div>
@@ -48,7 +38,13 @@ export default {
   name: 'Header',
   data(){
     return {
-      show: false
+      show: false,
+      nav:[
+        {title: '首页', path: '/', class: 'el-icon-s-home'},
+        {title: '文章', path: '/article', class: 'el-icon-s-order'},
+        {title: '归档', path: '/archive', class: 'el-icon-s-grid'},
+        {title: '关于', path: '/about', class: 'el-icon-info'}
+      ]
     }
   },
    methods: {
@@ -62,32 +58,10 @@ export default {
       this.show = !this.show
     }
   }
-
 }
 </script>
 
 <style scoped>
-  @media screen and (max-width: 800px){
-    .header {
-      position: fixed;
-      top: 0;
-      z-index: 20;
-      background: #515a6e;
-      color: #fff;
-    }
-    .header-fun {
-      display: none;
-    }
-  }
-  @media screen and (min-width: 800px){
-    .header {
-      background: #fff;
-      color: #515a6e;
-    }
-    .header-dropdown {
-      display: none;
-    }
-  }
   .header {
     width: 100%;
     height: 64px;
@@ -102,11 +76,11 @@ export default {
     line-height: 64px;
     font-size: 18px;
   }
-  .header-fun {
+  .header-func {
     float: right;
     padding-right: 5%;
   }
-  .header-fun-items {
+  .header-func-items {
     float: left;
     padding: 0 20px;
     line-height: 64px;
@@ -149,5 +123,26 @@ export default {
   .fade-leave-active{
     transition: transform .4s ease;
   } 
+  @media screen and (max-width: 800px){
+    .header {
+      position: fixed;
+      top: 0;
+      z-index: 20;
+      background: #515a6e;
+      color: #fff;
+    }
+    .header-func {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 800px){
+    .header {
+      background: #fff;
+      color: #515a6e;
+    }
+    .header-dropdown {
+      display: none;
+    }
+  }
 </style>
 
