@@ -12,6 +12,7 @@ export default {
 
 <style scoped>
   .content {
+    position: relative;
     flex:1 1 auto;
     background: #fff;
     border-radius: 6px;

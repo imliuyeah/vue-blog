@@ -29,7 +29,8 @@ export default {
   },
   methods: {
     getArticle(){
-      this.$http.get('article.json').then(this.getArticleSucc)
+      this.$http.get('article.json')
+                .then(this.getArticleSucc)
     },
     getArticleSucc(res){
       res = res.data

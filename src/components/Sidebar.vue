@@ -17,6 +17,10 @@
           <span slot="title">{{item.title}}</span>
         </el-menu-item>
       </el-menu>
+
+      <!-- <el-menu :default-active="$route.path" router  mode="horizontal">
+        <el-menu-item v-for="route in routes" :key="route.path" :index="route.path" :class="$route.path==route.path?'is-active':''">{{route.name}}</el-menu-item>
+      </el-menu> -->
     </div>
     <div class="sidebar-info" ref="wrapper">
       <div class="sidebar-info-img">
@@ -43,6 +47,7 @@ export default {
       // 而当我们刷新了页面之后，default-active 就变成了 /article/1 ，找不到匹配项，就失去了高亮 
       router: true,
       activeIndex: this.$route.path,
+
       nav: [
         {title: '首页', path: '/', class: 'el-icon-s-home', index: "1"},
         {title: '文章', path: '/article', class: 'el-icon-s-order', index: "2"},
@@ -57,9 +62,8 @@ export default {
       ]
     }
   },
-  watch: {
-    '$route'(){
-      // 每当页面路由变化时，读取当前路由地址
+  methods: {
+    readPath(){
       const path = this.$route.path
       this.activeIndex = path
       const index = path.lastIndexOf('\/')
@@ -69,6 +73,16 @@ export default {
         console.log(newPath)
       }
     }
+  },
+  watch: {
+    '$route'(){
+      // 每当页面路由变化时，读取当前路由地址
+      this.readPath()
+    }
+  },
+  mounted() {
+    // 每当页面发生重载时，读取当前路由地址
+    this.readPath()
   }
 }
 </script>

@@ -10,9 +10,9 @@ import {
   MenuItem, 
   MenuItemGroup,
   Timeline,
-  TimelineItem
+  TimelineItem,
+  Input
 } from 'element-ui'
-
 import './assets/styles/iconfont.css'
 
 Vue.use(Vuex)
@@ -25,6 +25,7 @@ Vue.component(MenuItemGroup.name, MenuItemGroup)
 Vue.component(Button.name, Button)
 Vue.component(Timeline.name, Timeline)
 Vue.component(TimelineItem.name, TimelineItem)
+Vue.component(Input.name, Input)
 
 const store = new Vuex.Store({
   
