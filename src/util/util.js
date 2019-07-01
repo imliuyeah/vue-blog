@@ -20,8 +20,10 @@ export function delCookie(name){
   var exp = new Date();
   exp.setTime(exp.getTime() - 1);
   var cval = getCookie(name);
-  if (cval != null)
+  if (cval != null){
     document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+  }
+    window.localStorage.removeItem("userInfo");
 }
 
 export function checkLogin(){

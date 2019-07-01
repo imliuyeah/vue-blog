@@ -73,7 +73,7 @@ new Vue({
     beforeCreate(){
       if(getCookie('session')){
         this.$store.state.LoginState = true
-        const userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
+        const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
         this.$store.state.userInfo = userInfo
       }
     }

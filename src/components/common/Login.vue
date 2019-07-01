@@ -70,7 +70,7 @@ export default {
                  nick: data.nick,
                  uid: data.uid
                }
-               window.sessionStorage.userInfo = JSON.stringify(userInfo);
+               window.localStorage.userInfo = JSON.stringify(userInfo);
                this.successLogin()
                this.$store.commit("closeLoginPage")
                this.$store.commit("changeLoginState", true)
