@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Archive',
   data(){
@@ -30,7 +32,8 @@ export default {
   },
   methods: {
     getArticle(){
-      this.$http.get('archive.json').then(this.getArticleSucc)
+      axios.get('archive.json')
+           .then(this.getArticleSucc)
     },
     getArticleSucc(res){
       res = res.data

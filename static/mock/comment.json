@@ -1,25 +1,46 @@
 {
   "ret": true,
-  "data":[{
-      "username": "小红",
-      "time": "2019-01-02 13:21:31",
+  "data":[
+    {
+      "id": "0001",
+      "fromName": "小红",
+      "fromId": "111",
+      "fromAvatar": "/src/images/info.jpg",
+      "time": "2019-01-02 13:21:31", 
       "content": "今天天气真好，你吃了吗？",
-      "reply": {
-        "username": "大红",
-        "time": "2019-01-03 10:21:31",
-        "content": "我吃了你呢？"
-      }
+      "likeNum": 3,
+      "reply": [
+        {
+          "fatherId": "0001",
+          "fromName": "大红",
+          "fromId": "222",
+          "fromAvatar": "/src/images/info.jpg",
+          "toId": "111",
+          "toName": "小红",
+          "time": "2019-01-03 10:21:31",
+          "content": "我吃了你呢？",
+          "likeNum": 0
+        },{
+          "fatherId": "0001",
+          "fromName": "白白",
+          "fromId": "333",
+          "fromAvatar": "/src/images/info.jpg",
+          "toId": "222",
+          "toName": "大红",
+          "time": "2019-01-03 10:21:31",
+          "content": "你好啊",
+          "likeNum": 0
+        }
+      ]
     },{
-      "username": "小明",
-      "time": "2019-01-03 13:21:31",
-      "content": "哈哈哈，好开心啊。"
-    },{
-      "username": "小刚",
-      "time": "2019-01-04 13:21:31",
-      "content": "你在说什么？"
-    },{
-      "username": "小兰",
-      "time": "2019-01-05 13:21:31",
-      "content": "呵呵呵"
-    }]
+      "id": "0002",
+      "fromName": "小明",
+      "fromId": "444",
+      "fromAvatar": "/src/images/info.jpg",
+      "time": "2019-01-03 13:21:31", 
+      "content": "哈哈哈，好开心啊。",
+      "likeNum": 0,
+      "reply": []
+    }
+  ]
 }

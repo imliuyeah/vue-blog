@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
+import axios from 'axios'
 
 import Home from '../components/contents/Home.vue'
 import About from '../components/contents/About.vue'
@@ -9,9 +9,8 @@ import Archive from '../components/contents/Archive.vue'
 import ArticleDetail from '../components/articles/ArticleDetail.vue'
 
 Vue.use(VueRouter)
-Vue.use(VueResource)
 
-Vue.http.options.root = '/static/mock';
+axios.defaults.baseURL = '/static/mock';
 
 const router = new VueRouter({
   routes: [

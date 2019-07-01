@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Article',
   data(){
@@ -29,8 +31,8 @@ export default {
   },
   methods: {
     getArticle(){
-      this.$http.get('article.json')
-                .then(this.getArticleSucc)
+      axios.get('article.json')
+           .then(this.getArticleSucc)
     },
     getArticleSucc(res){
       res = res.data

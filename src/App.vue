@@ -5,19 +5,22 @@
       <home-sidebar></home-sidebar>
       <home-content></home-content>
     </div>
+    <home-login></home-login>
   </div>
 </template>
 
 <script>
-import HomeHeader from './components/Header.vue'
-import HomeSidebar from './components/Sidebar.vue'
-import HomeContent from './components/Content.vue'
+import HomeHeader from './components/common/Header.vue'
+import HomeSidebar from './components/common/Sidebar.vue'
+import HomeContent from './components/common/Content.vue'
+import HomeLogin from './components/common/Login.vue'
 
 export default {
   components: {
     HomeHeader,
     HomeSidebar,
-    HomeContent
+    HomeContent,
+    HomeLogin
   }
 }
 </script>

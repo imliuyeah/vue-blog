@@ -2,29 +2,23 @@
   <div class="sidebar">
     <p class="sidebar-title">Hello World</p>
     <div class="sidebar-menu">
-      <el-menu
-       :default-active="activeIndex"
-       :router="router"
-       class="el-menu-vertical"
-       background-color="#515a6e"
-       text-color="#fff"
-       active-text-color="#ffd04b">
-        <el-menu-item 
-         v-for="(item, index) in nav" 
-         :index="item.path" 
-         :key="index">
+      <el-menu :default-active="activeIndex"
+               :router="router"
+               class="el-menu-vertical"
+               background-color="#515a6e"
+               text-color="#fff"
+               active-text-color="#ffd04b">
+        <el-menu-item v-for="(item, index) in nav" 
+                      :index="item.path" 
+                      :key="index">
           <i :class="item.class"></i>
           <span slot="title">{{item.title}}</span>
         </el-menu-item>
       </el-menu>
-
-      <!-- <el-menu :default-active="$route.path" router  mode="horizontal">
-        <el-menu-item v-for="route in routes" :key="route.path" :index="route.path" :class="$route.path==route.path?'is-active':''">{{route.name}}</el-menu-item>
-      </el-menu> -->
     </div>
     <div class="sidebar-info" ref="wrapper">
       <div class="sidebar-info-img">
-        <img src="../images/info.jpg" alt="info">
+        <img src="../../images/info.jpg" alt="info">
       </div>
       <p class="sidebar-description">大自然的搬运工</p>
       <ul class="siderbar-comm">
@@ -47,7 +41,6 @@ export default {
       // 而当我们刷新了页面之后，default-active 就变成了 /article/1 ，找不到匹配项，就失去了高亮 
       router: true,
       activeIndex: this.$route.path,
-
       nav: [
         {title: '首页', path: '/', class: 'el-icon-s-home', index: "1"},
         {title: '文章', path: '/article', class: 'el-icon-s-order', index: "2"},
@@ -70,7 +63,6 @@ export default {
       if(index != 0){
         const newPath = path.slice(0, index)
         this.activeIndex = newPath
-        console.log(newPath)
       }
     }
   },

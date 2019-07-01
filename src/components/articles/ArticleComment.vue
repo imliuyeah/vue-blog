@@ -1,52 +1,63 @@
 <template>
   <div class="comment">
     <ul class="comment-list">
-      <li class="comment-list-item" v-for="(items, index) in list" :key="items.username" >
+      <li class="comment-list-item" v-for="(item, index) of list" :key="item.username" >
         <div class="commentator">
           <div class="comment-header">
             <span class="avator">
-              <img class="avator-img" src="../../images/info.jpg">
+              <img class="avator-img" :src=item.fromAvatar>
             </span>
             <div class="info">
-              <span class="info-name">{{items.username}}</span>
-              <span class="info-time">{{items.time}}</span>
+              <span class="info-name">{{item.fromName}}</span>
+              <span class="info-time">{{item.time}}</span>
             </div>
           </div>
           <p class="comment-detail">
-            {{items.content}}
+            {{item.content}}
           </p>
           <div class="comment-footer">
             <span class="comment-floor">#{{ index + 1 }}</span>
-            <i class="iconfont">&#xe600;</i>
-            <span class="comment-like">赞</span>
-            <i class="iconfont">&#xe602;</i>
-            <span class="comment-reply">回复</span>
+            <span class="comment-like" 
+                  @click="isLiked(item, isLikeComment)">
+              <i class="iconfont">&#xe600;</i>
+              {{item.likeNum}}
+            </span>
+            <span class="comment-reply">
+              <i class="iconfont">&#xe602;</i>
+              回复
+            </span>
           </div>
         </div>
-        <ul v-if="items.reply" class="children">
-          <li>
+        <ul class="children">
+          <li v-for="(item, index) in item.reply" :key="index">
             <div class="commentator">
               <div class="comment-header">
                 <span class="avator">
-                  <img class="avator-img" src="../../images/info.jpg">
+                  <img class="avator-img" :src=item.fromAvatar>
                 </span>
                 <div class="info">
-                  <span class="info-name">{{items.reply.username}}</span>
-                  <span class="info-time">{{items.reply.time}}</span>
+                  <span class="info-name">{{item.fromName}}</span>
+                  <span class="info-time">{{item.time}}</span>
                 </div>
               </div>
               <p class="comment-detail">
-                {{items.reply.content}}
+                <span class="comment-to">@{{item.toName}}</span>
+                {{item.content}}
               </p>
               <div class="comment-footer">
-                <i class="iconfont">&#xe600;</i>
-                <span class="comment-like">赞</span>
-                <i class="iconfont">&#xe602;</i>
-                <span class="comment-reply">回复</span>
+                <span class="comment-like" 
+                      @click="isLiked(item, isLikeReply)">
+                  <i class="iconfont">&#xe600;</i>
+                  {{item.likeNum}}
+                </span>
+                
+                <span class="comment-reply">
+                  <i class="iconfont">&#xe602;</i>
+                  回复
+                </span>
               </div>
             </div>
           </li>
-          <!-- <article-comment :list="items.reply"></article-comment> -->
         </ul>
       </li>
     </ul>
@@ -54,11 +65,17 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { getCookie, checkLogin } from '../../util/util.js';
+
 export default {
   name: 'ArticleComment',
   data(){
     return {
-      list: []
+      like: 0,
+      list: [],
+      isLikeComment: false,
+      isLikeReply: false
     }
   },
   mounted(){
@@ -66,15 +83,50 @@ export default {
   },
   methods: {
     getComment(){
-      this.$http.get('comment.json')
-                .then(this.getCommentSucc)
+      axios.get('comment.json')
+           .then(this.getCommentSucc)
     },
     getCommentSucc(res){
       res = res.data
       if(res.ret && res.data){
         this.list = res.data
       }
+    },
+    isLiked(item, part){
+      console.log(part)
+      if(checkLogin()){
+        if(!this.part){
+          item.likeNum ++
+          this.part = true
+        }else{
+          item.likeNum --
+          this.part = false
+        }
+      }
     }
+    // likeComment(item){
+    //   if(checkLogin()){
+    //     if(!this.isLikeComment){
+    //       item.likeNum ++
+    //       this.isLikeComment = true
+    //     }else{
+    //       item.likeNum --
+    //       this.isLikeComment = false
+    //     }
+    //   }
+    // },
+    // likeReply(item){
+    //   if(checkLogin()){
+    //     if(!this.isLikeComment){
+    //       item.likeNum ++
+    //       this.isLikeReply = true
+    //     }else{
+    //       item.likeNum --
+    //       this.isLikeReply = false
+    //     }
+    //   }
+    // }
+
   }
 }
 </script>
@@ -143,5 +195,8 @@ export default {
   }
   .children {
     padding: 10px 0 0 50px;
+  }
+  .comment-to {
+    color: #409edd;
   }
 </style>

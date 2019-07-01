@@ -3,26 +3,27 @@
     <div class="header-title">
       <h1>MyBlog</h1>  
     </div>
-    <ul class="header-func">
-      <li class="header-func-items el-icon-user-solid">登录</li>
-    </ul>
-    <div class="header-dropdown" @click.prevent="handleClick">
+    <div class="header-func">
+      <span class="header-func-items el-icon-user-solid"
+          @click="handleLogin">
+        {{isLogged}}
+      </span>
+    </div>
+    <div class="header-dropdown">
       <i class="el-icon-s-operation"></i>
       <transition name="fade">
-        <div class="dropdown-nav" v-show="show">
-          <el-menu
-            :default-active="this.$route.path"
-            class="el-menu-vertical"
-            @open="handleOpen"
-            @close="handleClose"
-            background-color="#515a6e"
-            text-color="#fff"
-            active-text-color="#ffd04b"
-            router>
-            <el-menu-item 
-             v-for="(item, index) in nav" 
-             :index="item.path" 
-             :key="index">
+        <div class="dropdown-nav" v-if="show">
+          <el-menu :default-active="this.$route.path"
+                   class="el-menu-vertical"
+                   @open="handleOpen"
+                   @close="handleClose"
+                   background-color="#515a6e"
+                   text-color="#fff"
+                   active-text-color="#ffd04b"
+                   router>
+            <el-menu-item v-for="(item, index) in nav" 
+                          :index="item.path" 
+                          :key="index">
               <i :class="item.class"></i>
               <span slot="title">{{item.title}}</span>
             </el-menu-item>
@@ -34,6 +35,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { delCookie } from '../../util/util.js'
+
 export default {
   name: 'Header',
   data(){
@@ -54,9 +58,41 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    handleClick(){
-      this.show = !this.show
+    // 打开登录页面
+    showLoginPage(){
+      this.$store.commit("openLoginPage")
+    },
+    // 判断是否已登录，是则弹出注销提示，否则打开登录页面
+    handleLogin(){
+      if(this.$store.state.LoginState){
+        this.logout()
+      }else{
+        this.$store.commit("openLoginPage")
+      }
+    },
+    // 注销登录
+    logout() {
+      this.$messagebox.confirm('是否注销？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        delCookie('session')
+        this.$store.commit("changeLoginState", false)
+        this.$message({
+          type: 'success',
+          message: '注销成功!'
+        });
+      })       
     }
+  },
+  computed: {
+    ...mapState(['LoginState','userInfo']),
+    // 如果已登录则显示昵称，否则显示 登录 字样
+    isLogged: function(){
+      const nick = this.userInfo.nick
+      return this.LoginState ? nick : "登录"
+    } 
   }
 }
 </script>
@@ -85,6 +121,7 @@ export default {
     padding: 0 20px;
     line-height: 64px;
     font-size: 15px;
+    cursor: pointer;
   }
   .header-dropdown {
     float: right;
@@ -131,8 +168,11 @@ export default {
       background: #515a6e;
       color: #fff;
     }
-    .header-func {
+    .header-title {
       display: none;
+    }
+    .header-func {
+      float: left;
     }
   }
   @media screen and (min-width: 800px){

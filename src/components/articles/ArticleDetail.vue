@@ -1,7 +1,7 @@
 <template>
   <div class="article">
     <div class="detail">
-      <h3 class="detail-title">我是标题</h3>
+      <h3 class="detail-title">风筝</h3>
       <div class="detail-meta">
         <span class="el-icon-date">
           2019-06-23 19:20:20
@@ -24,9 +24,8 @@
       <div class="article-like">
         <el-button type="danger" 
                    class="article-like" 
-                   circle
                    @click="likeArticle">
-          赞
+          {{isLiked ? "取消" : "点赞" }}
         </el-button>
       </div>
     </div>
@@ -37,8 +36,8 @@
                 :autosize="{ minRows: 3, maxRows: 4}">
       </el-input>
       <span type="info" 
-                 class="add-comment"
-                 :autofocus="autofocus">
+            class="add-comment"
+            @click="addComment">
         发表评论
       </span>
     </div>
@@ -48,23 +47,37 @@
 
 <script>
 import ArticleComment from './ArticleComment.vue'
+import { getCookie, checkLogin } from '../../util/util.js';
 
 export default {
+  components: {
+    ArticleComment
+  },
   data(){
     return {
       like: 0,
       comment: [],
       textarea: '',
-      autofocus: false
+      isLiked: false
     }
   },
   methods: {
     likeArticle(){
-      this.like ++
+      if(checkLogin()){
+        if(!this.isLiked){
+          this.like ++
+          this.isLiked = true
+        }else{
+          this.like --
+          this.isLiked = false
+        }
+      }
+    },
+    addComment(){
+      if(checkLogin()){
+        alert('发表成功')
+      }
     }
-  },
-  components: {
-    ArticleComment
   }
 }
 </script>
