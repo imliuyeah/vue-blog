@@ -28,7 +28,6 @@ export function delCookie(name){
 
 export function checkLogin(){
   if(!getCookie('session')){
-    alert('请先登录！')
     return false
   }else{
     return true

@@ -19,7 +19,8 @@ import './assets/styles/iconfont.css'
 import axios from 'axios'
 import { getCookie } from './util/util.js'
 
-require('../static/mock/index.js')
+import '../static/mock/index.js'
+import '../static/mock/comment.js'
 
 Vue.use(Vuex)
 

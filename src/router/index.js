@@ -4,9 +4,9 @@ import axios from 'axios'
 
 import Home from '../components/contents/Home.vue'
 import About from '../components/contents/About.vue'
-import Article from '../components/contents/Article.vue'
+import ArticleList from '../components/contents/ArticleList.vue'
 import Archive from '../components/contents/Archive.vue'
-import ArticleDetail from '../components/articles/ArticleDetail.vue'
+import ArticleContent from '../components/articles/ArticleContent.vue'
 
 Vue.use(VueRouter)
 
@@ -20,11 +20,11 @@ const router = new VueRouter({
     },
     {
       path: '/article',
-      component: Article
+      component: ArticleList
     },
     {
       path: '/article/:id',
-      component: ArticleDetail
+      component: ArticleContent
     },
     {
       path: '/archive',

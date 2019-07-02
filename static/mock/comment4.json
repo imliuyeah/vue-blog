@@ -1,45 +1,51 @@
 {
-  "ret": true,
+  "code": 200,
   "data":[
     {
-      "id": "0001",
+      "id": "1",
       "fromName": "小红",
       "fromId": "111",
       "fromAvatar": "/src/images/info.jpg",
-      "time": "2019-01-02 13:21:31", 
+      "time": "2019/01/02 13:21:31", 
       "content": "今天天气真好，你吃了吗？",
       "likeNum": 3,
+      "isLiked": false,
       "reply": [
         {
-          "fatherId": "0001",
+          "fatherId": "1",
+          "id": "1-1",
           "fromName": "大红",
           "fromId": "222",
           "fromAvatar": "/src/images/info.jpg",
           "toId": "111",
           "toName": "小红",
-          "time": "2019-01-03 10:21:31",
+          "time": "2019/01/03 10:21:31",
           "content": "我吃了你呢？",
-          "likeNum": 0
+          "likeNum": 0,
+          "isLiked": false
         },{
-          "fatherId": "0001",
+          "fatherId": "1",
+          "id": "1-2",
           "fromName": "白白",
           "fromId": "333",
           "fromAvatar": "/src/images/info.jpg",
           "toId": "222",
           "toName": "大红",
-          "time": "2019-01-03 10:21:31",
+          "time": "2019/01/03 10:21:31",
           "content": "你好啊",
-          "likeNum": 0
+          "likeNum": 0,
+          "isLiked": false
         }
       ]
     },{
-      "id": "0002",
+      "id": "2",
       "fromName": "小明",
       "fromId": "444",
       "fromAvatar": "/src/images/info.jpg",
-      "time": "2019-01-03 13:21:31", 
+      "time": "2019/01/03 13:21:31", 
       "content": "哈哈哈，好开心啊。",
       "likeNum": 0,
+      "isLiked": false,
       "reply": []
     }
   ]

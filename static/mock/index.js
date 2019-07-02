@@ -7,7 +7,7 @@ const loginByUsername = function(options){
   // 如果用户名为admin且密码为123则登录成功
   if(username == 'admin' && password == "123"){
     return {
-      code: 1,
+      code: 200,
       session: 123,
       nick: 'Dell',
       uid: '10000'

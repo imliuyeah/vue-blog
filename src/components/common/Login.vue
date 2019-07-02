@@ -56,15 +56,15 @@ export default {
       }
     },
     toLogin(){
-      let loginParam = {
+      const loginParam = {
         username: this.username,
         password: this.password
       }
       axios.post('/login/api', loginParam)
            .then(res => {
-             if(res.data.code == 1){
+             if(res.data.code == 200){
                const data = res.data
-               let exdays = 1000 * 60 * 60 * 24 * 7;
+               const exdays = 1000 * 60 * 60 * 24 * 7;
                setCookie('session', data.session, exdays) 
                const userInfo = {
                  nick: data.nick,

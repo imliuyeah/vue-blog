@@ -37,7 +37,7 @@ export default {
     },
     getArticleSucc(res){
       res = res.data
-      if(res.ret && res.data) {
+      if(res.code == 200 && res.data) {
         this.list = res.data
       }
     }

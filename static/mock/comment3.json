@@ -1,0 +1,26 @@
+{
+  "code": 200,
+  "data":[
+    {
+      "id": "0001",
+      "fromName": "小红",
+      "fromId": "111",
+      "fromAvatar": "/src/images/info.jpg",
+      "time": "2019/01/02 13:21:31", 
+      "content": "啦啦啦",
+      "likeNum": 0,
+      "isLiked": false,
+      "reply": []
+    },{
+      "id": "0002",
+      "fromName": "白白",
+      "fromId": "333",
+      "fromAvatar": "/src/images/info.jpg",
+      "time": "2019/01/03 13:21:31", 
+      "content": "说的真对。",
+      "likeNum": 0,
+      "isLiked": false,
+      "reply": []
+    }
+  ]
+}

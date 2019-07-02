@@ -4,7 +4,7 @@
         <h2 class="article-title">{{items.title}}</h2>
         <span class="article-date el-icon-date">发表日期 {{items.date}}</span>
         <div class="article-content">
-          <p class="article-desc">{{items.desc}}</p>
+          <p class="article-desc">{{items.abstract}}</p>
         </div>
         <span 
          :to="'article/'+items.id" 
@@ -20,23 +20,23 @@
 import axios from 'axios'
 
 export default {
-  name: 'Article',
+  name: 'ArticleList',
   data(){
     return {
       list: []
     }
   },
   mounted(){
-    this.getArticle()
+    this.getArticleList()
   },
   methods: {
-    getArticle(){
+    getArticleList(){
       axios.get('article.json')
            .then(this.getArticleSucc)
     },
-    getArticleSucc(res){
+     getArticleSucc(res){
       res = res.data
-      if(res.ret && res.data) {
+      if(res.code == 200 && res.data){
         this.list = res.data
       }
     },
