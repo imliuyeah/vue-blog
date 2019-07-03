@@ -1,96 +1,100 @@
 <template>
-  <div class="comment" v-if="[(commentList.length = 0) ? false : true]">
-    <ul class="comment-list">
-      <li class="comment-list-item" v-for="(item, index) of commentList" :key="item.username" >
-        <div class="commentator">
-          <div class="comment-header">
-            <span class="avator">
-              <img class="avator-img" :src=item.fromAvatar>
-            </span>
-            <div class="info">
-              <span class="info-name">{{item.fromName}}</span>
-              <span class="info-time">{{item.time}}</span>
-            </div>
-          </div>
-          <p class="comment-detail">
-            {{item.content}}
-          </p>
-          <div class="comment-footer">
-            <span class="comment-floor">#{{ index + 1 }}</span>
-            <span class="comment-like" 
-                  :style="[ item.isLiked ? {color: '#f56c6c'} : '']"
-                  @click="changeLikeState(item)">
-              <i class="iconfont">&#xe600;</i>
-              {{item.likeNum}}
-            </span>
-            <span class="comment-reply"
-                  @click="addReply(item)">
-              <i class="iconfont">&#xe602;</i>
-              回复
-            </span>
-          </div>
+  <ul v-if="[(commentList.length = 0) ? false : true]">
+    <li :class="[item.reply ? 'comment' : 'comment-sub']" 
+        v-for="(item, index) of commentList" 
+        :key="item.username" >
+      <div class="comment-header">
+        <div class="comment-header-avator">
+          <img :src=item.fromAvatar>
         </div>
-        <ul class="children">
-          <div class="reply"
-               v-show="showReplyId === item.id">
-            <el-input type="textarea" 
-                      placeholder="说点什么吧" 
-                      v-model="textarea"
-                      :autosize="{ minRows: 1, maxRows: 10}"
-                      autofocus>
-            </el-input>
-            <span type="info" 
-                  class="add-comment">
-              回复
-            </span>
-          </div>
-          <li v-for="(item, index) in item.reply" :key="index">
-            <div class="children-commentator">
-              <div class="comment-header">
-                <span class="avator">
-                  <img class="avator-img" :src=item.fromAvatar>
-                </span>
-                <div class="info">
-                  <span class="info-name">{{item.fromName}}</span>
-                  <span class="info-time">{{item.time}}</span>
+        <div class="comment-info">
+          <span class="comment-info-name">{{item.fromName}}</span>
+          <span class="comment-info-time">{{item.time}}</span>
+        </div>
+      </div>
+      <div class="comment-content">
+        <p>
+          <span class="comment-content-target"
+                v-if="!item.reply">
+                @{{item.toName}}
+          </span>
+          {{item.content}}
+        </p>
+      </div>
+      <div class="comment-footer">
+        <span v-if="item.reply">#{{ index + 1 }}</span>
+        <span :style="[ item.isLiked ? {color: '#f56c6c'} : '']"
+              @click="changeLikeState(item)">
+          <i class="iconfont">&#xe600;</i>
+          {{item.likeNum}}
+        </span>
+        <span @click="showReplyBox(item)">
+          <i class="iconfont">&#xe602;</i>
+          回复
+        </span>
+      </div>
+      <div :class="[item.reply ? 'comment-reply-box' : 'comment-subreply-box']"
+           v-show="showReplyId === item.id">
+          <el-input type="textarea" 
+                    :placeholder="commentObject"
+                    v-model="commentContent"
+                    :autosize="{ minRows: 1, maxRows: 10}"
+                    autofocus>
+          </el-input>
+          <span class="comment-reply-btn"
+                @click="pushReply(item)">添加回复</span>
+      </div>
+      <div class="comment-sub-list" 
+           v-if="item.reply !== undefined && item.reply.length > 0">
+        <!-- <ul class="comment-sub-list">
+            <li v-for="(item, index) in item.reply" :key="index">
+              <div class="comment-sub-item">
+                <div class="comment-header">
+                  <div class="comment-header-avator">
+                    <img :src=item.fromAvatar>
+                  </div>
+                  <div class="comment-info">
+                    <span class="comment-info-name">{{item.fromName}}</span>
+                    <span class="comment-info-time">{{item.time}}</span>
+                  </div>
                 </div>
-              </div>
-              <p class="comment-detail">
-                <span class="comment-to">@{{item.toName}}</span>
-                {{item.content}}
-              </p>
-              <div class="comment-footer">
-                <span class="comment-like" 
-                      :style="[ item.isLiked ? {color: '#f56c6c'} : '']"
-                      @click="changeLikeState(item)">
-                  <i class="iconfont">&#xe600;</i>
-                  {{item.likeNum}}
-                </span>
-                <span class="comment-reply"
-                      @click="addChildrenReply(item)">
-                  <i class="iconfont">&#xe602;</i>
-                  回复
-                </span>
-                <div class="reply"
+                <p class="comment-content">
+                  <span class="comment-content-target">@{{item.toName}}</span>
+                  {{item.content}}
+                </p>
+                <div class="comment-footer">
+                  <span :style="[ item.isLiked ? {color: '#f56c6c'} : '']"
+                        @click="changeLikeState(item)">
+                    <i class="iconfont">&#xe600;</i>
+                    {{item.likeNum}}
+                  </span>
+                  <span @click="addChildrenReply(item)">
+                    <i class="iconfont">&#xe602;</i>
+                    回复
+                  </span>
+                </div>
+                <div class="comment-reply-box"
                     v-show="showChidrenReplyId === item.id">
                   <el-input type="textarea" 
                             placeholder="说点什么吧" 
-                            v-model="textarea"
+                            v-model="childrenTextarea"
                             :autosize="{ minRows: 1, maxRows: 10}"
                             autofocus>
                   </el-input>
                   <span type="info" 
-                        class="add-comment">
-                    回复
+                        class="comment-reply-btn"
+                        @click="pushChildrenReply(item)">
+                    添加回复
                   </span>
                 </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
+            </li>
+        </ul> -->
+        <!-- 通过递归的形式来渲染二级回复 -->
+        <article-comment :commentList="item.reply"></article-comment>
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -104,16 +108,13 @@ export default {
   },
   data(){
     return {
-      like: 0,
-      list: [],
-      show: false,
-      textarea: '',
-      reply: '',
-      showReplyId: '',
-      showChidrenReplyId: ''
+      commentObject: '',
+      commentContent: '',
+      showReplyId: ''
     }
   },
   methods: {
+    // 改变点赞的状态
     changeLikeState(item){
       if(checkLogin()){
         if(!item.isLiked){
@@ -127,28 +128,51 @@ export default {
         this.alertLogin()
       }
     },
-    addReply(item){
+    // 显示评论框
+    showReplyBox(item){
+      // checkLogin 用来验证是否已经登录
       if(checkLogin()){
-        if(this.showReplyId==item.id){
+        // 判断回复框是属于哪个评论的
+        if(this.showReplyId == item.id){
           this.showReplyId = ''
         }else{
           this.showReplyId = item.id
         }
+        // 确定评论框中 @ 后面跟着的内容
+        this.commentObject = "@" + item.fromName + " "
       }else{
         this.alertLogin()
       }
     },
-    addChildrenReply(item){
-      if(checkLogin()){
-        if(this.showChidrenReplyId){
-          this.showChidrenReplyId = ''
-        }else{
-          this.showChidrenReplyId = item.id
-        }
-      }else{
-        this.alertLogin()
+    // 提交回复
+    pushReply(item){
+      const reply = {
+        "fatherId": item.fatherId,
+        "id": this.addId(item.id),
+        "fromName": this.$store.state.userInfo.nick,
+        "fromId": this.$store.state.userInfo.uid,
+        "fromAvatar": "/src/images/info.jpg",
+        "toId": item.fromId,
+        "toName": item.fromName,
+        "time": new Date().toLocaleString('chinese',{hour12:false}),
+        "content": this.commentContent,
+        "likeNum": 0,
+        "isLiked": false
       }
+      if(item.reply !== undefined){
+        item.reply.push(reply)
+      }else{
+        this.commentList.push(reply)
+      }
+      this.showReplyId = ''
+      this.commentContent = ''
     },
+    // 因为是根据id来判断，应该弹出哪一个评论框，所以这里让id增加，保证弹出的评论框是唯一的
+    addId(id){
+      let newId = id + 0
+      return newId
+    },
+    // 用来提醒用户登录
     alertLogin(){
       this.$message.warning({
           message: '请先登录！',
@@ -161,47 +185,46 @@ export default {
 
 <style scoped>
   .comment {
-    margin-top: 20px;
-    padding-top: 20px;
+    padding: 20px 0;
     border-top: 1px solid #ddd; 
-  }
-  .comment-list {
     font-size: 14px;
   }
-  .comment-list-item {
+  .comment-list {
+    padding: 10px;
+  }
+  .comment-item {
     padding-top: 10px; 
   }
   .comment-header {
     position: relative;
     padding-left:40px; 
   }
-  .avator {
+  .comment-header-avator {
     position: absolute;
     top: 0;
     left: 0;
-    display: inline-block;
     width: 30px;
     height: 30px;
     overflow: hidden;
   }
-  .avator-img {
+  .comment-header-avator img {
     width: 100%;
     height: 100%;
   }
-  .info {
+  .comment-info {
     height: 30px;
     line-height: 15px;
   }
-  .info-name {
+  .comment-info-name {
     display: block;
     font-size: 15px;
     color: #333;
   }
-  .info-time {
+  .comment-info-time {
     font-size: 12px;
     color: #969696;
   }
-  .comment-detail {
+  .comment-content {
     height: 30px;
     word-break: break-word;
     line-height: 28px;
@@ -220,23 +243,25 @@ export default {
     margin-right: 2px;
     cursor: pointer;
   }
-  .children {
+  .comment-reply-box{
+    padding: 10px 10px 50px 10px;
+    margin: 0 20px 10px 30px; 
+    background: #f4f5f5;
+  }
+  .comment-sub {
+    padding: 10px;
+    background: #f4f5f5;
+  }
+  .comment-sub-list {
     margin:0 20px 10px 30px;
   }
-  .children-commentator {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    background: #f4f5f5;
-  }
-  .comment-to {
-    color: #409edd;
-  }
-  .reply{
+  .comment-subreply-box{
     padding: 10px 10px 50px 10px;
-    margin-bottom: 10px; 
-    background: #f4f5f5;
+    margin: 0 20px 10px 30px; 
+    border-radius: 5px;
+    background: #fff;
   }
-  .add-comment {
+  .comment-reply-btn {
     float: right;
     padding: 5px 8px;
     margin-top:10px;
@@ -248,5 +273,8 @@ export default {
     color: #fff;
     opacity: .8;
     cursor: pointer;
+  }
+  .comment-content-target {
+    color: #409edd;
   }
 </style>

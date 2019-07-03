@@ -108,7 +108,6 @@ export default {
           this.alertLogin('发表评论成功')
         }
       }
-      this.alertLogin('请先登录')
     },
     successComment(){
       this.$message.success({
