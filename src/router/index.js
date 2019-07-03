@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 
 import Home from '../components/contents/Home.vue'
-import About from '../components/contents/About.vue'
+import More from '../components/contents/More.vue'
 import ArticleList from '../components/contents/ArticleList.vue'
 import Archive from '../components/contents/Archive.vue'
 import ArticleContent from '../components/articles/ArticleContent.vue'
@@ -15,8 +15,8 @@ axios.defaults.baseURL = '/static/mock';
 const router = new VueRouter({
   routes: [
     {
-      path: '/about',
-      component: About
+      path: '/',
+      component: Home
     },
     {
       path: '/article',
@@ -31,8 +31,8 @@ const router = new VueRouter({
       component: Archive
     },
     {
-      path: '/home',
-      component: Home
+      path: '/more',
+      component: More
     }
   ]
 })

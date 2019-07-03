@@ -1,21 +1,7 @@
 <template>
   <div class="sidebar">
     <p class="sidebar-title">Hello World</p>
-    <div class="sidebar-menu">
-      <el-menu :default-active="activeIndex"
-               :router="router"
-               class="el-menu-vertical"
-               background-color="#515a6e"
-               text-color="#fff"
-               active-text-color="#ffd04b">
-        <el-menu-item v-for="(item, index) in nav" 
-                      :index="item.path" 
-                      :key="index">
-          <i :class="item.class"></i>
-          <span slot="title">{{item.title}}</span>
-        </el-menu-item>
-      </el-menu>
-    </div>
+    <sidebar-menu></sidebar-menu>
     <div class="sidebar-info" ref="wrapper">
       <div class="sidebar-info-img">
         <img src="../../images/info.jpg" alt="info">
@@ -33,8 +19,13 @@
 </template>
 
 <script>
+import SidebarMenu from './SidebarMenu.vue'
+
 export default {
   name: 'Sidebar',
+  components: {
+    SidebarMenu
+  },
   data(){
     return {
       // 从 /article 跳转到 /article/1 时，Sidebar 这个组件会被复用，因此这时候 el-menu 的 default-active 还是之前匹配到的 /article ，

@@ -12,7 +12,6 @@
       "isLiked": false,
       "reply": [
         {
-          "fatherId": "1",
           "id": "11",
           "fromName": "大红",
           "fromId": "222",
@@ -24,7 +23,6 @@
           "likeNum": 0,
           "isLiked": false
         },{
-          "fatherId": "1",
           "id": "12",
           "fromName": "白白",
           "fromId": "333",

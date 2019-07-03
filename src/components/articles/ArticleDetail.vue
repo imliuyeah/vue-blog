@@ -1,7 +1,7 @@
 <template>
   <div class="article">
     <div class="detail">
-      <h3 class="detail-title">{{articleContent.title}}</h3>
+      <h3 class="detail-title" v-text="articleContent.title"></h3>
       <div class="detail-meta">
         <span class="el-icon-date">
           {{articleContent.date}}
@@ -16,9 +16,7 @@
           赞 {{articleContent.likeNum}}
         </span>
       </div>
-      <div class="detail-body" v-html="articleContent.content">
-        {{articleContent.content}}
-      </div>
+      <div class="detail-body" v-html="articleContent.content"></div>
       <div class="article-like">
         <el-button type="danger" 
                    class="article-like" 
@@ -84,14 +82,14 @@ export default {
           this.isLiked = false
         }
       }else{
-        this.alertLogin('请先登录')
+        this.alert('请先登录')
       }
     },
     addComment(){
       if(checkLogin()){
         if(!this.textarea == ''){
           const comment = {
-            "id": this.commentList.length,
+            "id": this.commentList.length + 1,
             "fromName": this.$store.state.userInfo.nick,
             "fromId": this.$store.state.userInfo.uid,
             "fromAvatar": "/src/images/info.jpg",
@@ -105,8 +103,10 @@ export default {
           this.$emit('addComment', comment)
           this.textarea = ''
         }else{
-          this.alertLogin('发表评论成功')
+          this.alert('请输入内容')
         }
+      }else{
+        this.alert('请先登录')
       }
     },
     successComment(){
@@ -115,7 +115,7 @@ export default {
           duration: 2000
       });
     },
-    alertLogin(msg){
+    alert(msg){
       this.$message.warning({
           message: msg,
           duration: 2000

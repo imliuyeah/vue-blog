@@ -9,10 +9,11 @@
         {{isLogged}}
       </span>
     </div>
-    <div class="header-dropdown">
+    <div class="header-dropdown" @click="toggleShowMenu">
       <i class="el-icon-s-operation"></i>
       <transition name="fade">
-        <div class="dropdown-nav" v-if="show">
+        <sidebar-menu class="dropdown-nav" v-if="showMenu"></sidebar-menu>
+        <!-- <div class="dropdown-nav" v-if="show">
           <el-menu :default-active="this.$route.path"
                    class="el-menu-vertical"
                    @open="handleOpen"
@@ -28,7 +29,7 @@
               <span slot="title">{{item.title}}</span>
             </el-menu-item>
           </el-menu>
-        </div>
+        </div> -->
       </transition>
     </div>
   </div>
@@ -37,12 +38,16 @@
 <script>
 import { mapState } from 'vuex'
 import { delCookie } from '../../util/util.js'
+import SidebarMenu from './SidebarMenu.vue'
 
 export default {
   name: 'Header',
+  components: {
+    SidebarMenu
+  },
   data(){
     return {
-      show: false,
+      showMenu: false,
       nav:[
         {title: '首页', path: '/', class: 'el-icon-s-home'},
         {title: '文章', path: '/article', class: 'el-icon-s-order'},
@@ -52,6 +57,9 @@ export default {
     }
   },
    methods: {
+    toggleShowMenu(){
+      this.showMenu = !this.showMenu
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },

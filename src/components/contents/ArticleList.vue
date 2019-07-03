@@ -6,11 +6,10 @@
         <div class="article-content">
           <p class="article-desc">{{items.abstract}}</p>
         </div>
-        <span 
-         :to="'article/'+items.id" 
-         class="article-detail"
-         @click="goArticleDetail(items.id)">
-         阅读更多 >>
+        <span :to="'article/'+items.id" 
+              class="article-detail"
+              @click="goArticleDetail(items.id)">
+          阅读更多 >>
         </span>
       </li>
     </ul>

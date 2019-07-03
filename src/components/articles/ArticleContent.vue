@@ -4,7 +4,9 @@
                     :commentList="commentList"
                     @addComment="handlePushComment">
     </article-detail>
-    <article-comment :commentList="commentList"></article-comment>
+    <article-comment :commentList="commentList"
+                     @addReply="handlePushComment">
+    </article-comment>
   </div>
 </template>
 

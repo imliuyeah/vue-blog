@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import router from './router/index.js'
 import App from './App.vue'
 import { 
+  Pagination,
   Icon,
   Button, 
   Menu, 
@@ -20,7 +21,6 @@ import axios from 'axios'
 import { getCookie } from './util/util.js'
 
 import '../static/mock/index.js'
-import '../static/mock/comment.js'
 
 Vue.use(Vuex)
 
@@ -33,6 +33,7 @@ Vue.component(Button.name, Button)
 Vue.component(Timeline.name, Timeline)
 Vue.component(TimelineItem.name, TimelineItem)
 Vue.component(Input.name, Input)
+Vue.component(Pagination.name, Pagination)
 
 Vue.prototype.$message = Message
 Vue.prototype.$messagebox = MessageBox

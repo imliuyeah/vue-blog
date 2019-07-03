@@ -147,7 +147,6 @@ export default {
     // 提交回复
     pushReply(item){
       const reply = {
-        "fatherId": item.fatherId,
         "id": this.addId(item.id),
         "fromName": this.$store.state.userInfo.nick,
         "fromId": this.$store.state.userInfo.uid,
@@ -169,7 +168,7 @@ export default {
     },
     // 因为是根据id来判断，应该弹出哪一个评论框，所以这里让id增加，保证弹出的评论框是唯一的
     addId(id){
-      let newId = id + 0
+      let newId = id + 10
       return newId
     },
     // 用来提醒用户登录
