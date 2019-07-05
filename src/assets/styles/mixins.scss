@@ -1,0 +1,12 @@
+// 通用评论按钮
+@mixin comment-btn {
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  background: $theme-color;
+  color: #fff;
+  opacity: .8;
+  cursor: pointer;
+}

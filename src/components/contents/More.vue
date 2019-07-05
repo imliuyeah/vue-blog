@@ -8,7 +8,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .more {
     height: 50px;
     line-height: 50px;

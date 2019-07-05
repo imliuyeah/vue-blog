@@ -1,8 +1,9 @@
 <template>
-  <ul v-if="[(commentList.length = 0) ? false : true]">
-    <li :class="[item.reply ? 'comment' : 'comment-sub']" 
-        v-for="(item, index) of commentList" 
-        :key="item.username" >
+  <ul v-if="hasCommentList">
+    <li v-for="(item, index) of commentList"  
+        :key="item.id"
+        :hasReply="hasReplyList(item)"
+        :class="hasReply ? 'comment' : 'comment-sub'">
       <div class="comment-header">
         <div class="comment-header-avator">
           <img :src=item.fromAvatar>
@@ -33,7 +34,7 @@
           回复
         </span>
       </div>
-      <div :class="[item.reply ? 'comment-reply-box' : 'comment-subreply-box']"
+      <div :class="hasReply ? 'comment-reply-box' : 'comment-subreply-box'"
            v-show="showReplyId === item.id">
           <el-input type="textarea" 
                     :placeholder="commentObject"
@@ -44,8 +45,7 @@
           <span class="comment-reply-btn"
                 @click="pushReply(item)">添加回复</span>
       </div>
-      <div class="comment-sub-list" 
-           v-if="item.reply !== undefined && item.reply.length > 0">
+      <div class="comment-sub-list" v-if="item.reply">
         <!-- <ul class="comment-sub-list">
             <li v-for="(item, index) in item.reply" :key="index">
               <div class="comment-sub-item">
@@ -110,10 +110,27 @@ export default {
     return {
       commentObject: '',
       commentContent: '',
-      showReplyId: ''
+      showReplyId: '',
+      hasReply: false
     }
   },
+  mounted(){
+    this.hasCommentList()
+  },
   methods: {
+    // 判断有无父级文章评论
+    hasCommentList(){
+      return this.commentList > 0 ? true : false
+    },
+    // 判断父评论下有无子评论
+    hasReplyList(item){
+      if (item.reply) {
+        this.hasReply = true
+      } else {
+        this.hasReply = false
+      }
+      // return item.reply
+    },
     // 改变点赞的状态
     changeLikeState(item){
       if(checkLogin()){
@@ -131,18 +148,18 @@ export default {
     // 显示评论框
     showReplyBox(item){
       // checkLogin 用来验证是否已经登录
-      if(checkLogin()){
-        // 判断回复框是属于哪个评论的
-        if(this.showReplyId == item.id){
-          this.showReplyId = ''
-        }else{
-          this.showReplyId = item.id
-        }
-        // 确定评论框中 @ 后面跟着的内容
-        this.commentObject = "@" + item.fromName + " "
-      }else{
+      if(!checkLogin()){
         this.alertLogin()
+        return
       }
+      // 判断回复框是属于哪个评论的
+      if(this.showReplyId == item.id){
+        this.showReplyId = ''
+      }else{
+        this.showReplyId = item.id
+      }
+      // 确定评论框中 @ 后面跟着的内容
+      this.commentObject = "@" + item.fromName + " "
     },
     // 提交回复
     pushReply(item){
@@ -182,98 +199,92 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/varibles.scss';
+
   .comment {
     padding: 20px 0;
     border-top: 1px solid #ddd; 
     font-size: 14px;
   }
-  .comment-list {
+  .comment-sub {
     padding: 10px;
-  }
-  .comment-item {
-    padding-top: 10px; 
+    background: #f4f5f5;
   }
   .comment-header {
     position: relative;
     padding-left:40px; 
-  }
-  .comment-header-avator {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 30px;
-    overflow: hidden;
-  }
-  .comment-header-avator img {
-    width: 100%;
-    height: 100%;
-  }
-  .comment-info {
-    height: 30px;
-    line-height: 15px;
-  }
-  .comment-info-name {
-    display: block;
-    font-size: 15px;
-    color: #333;
-  }
-  .comment-info-time {
-    font-size: 12px;
-    color: #969696;
+    .comment-header-avator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .comment-info {
+      height: 30px;
+      line-height: 15px;
+      .comment-info-name {
+        display: block;
+        font-size: 15px;
+      }
+      .comment-info-time {
+        font-size: 12px;
+        color: #969696;
+      }
+    }
   }
   .comment-content {
     height: 30px;
     word-break: break-word;
     line-height: 28px;
+    .comment-content-target {
+      color: #409edd;
+    }
   }
   .comment-footer {
     color: #99a2aa;
     line-height: 26px;
     font-size: 12px;
-  }
-  .comment-footer span {
-    margin-right: 15px;
-    cursor: pointer;
-  }
-  .iconfont {
-    font-size: 12px;
-    margin-right: 2px;
-    cursor: pointer;
+    span {
+      margin-right: 15px;
+      cursor: pointer;
+      .iconfont {
+        font-size: 12px;
+        margin-right: 2px;
+        cursor: pointer;
+      }
+    }
   }
   .comment-reply-box{
     padding: 10px 10px 50px 10px;
     margin: 0 20px 10px 30px; 
     background: #f4f5f5;
-  }
-  .comment-sub {
-    padding: 10px;
-    background: #f4f5f5;
-  }
-  .comment-sub-list {
-    margin:0 20px 10px 30px;
+    .comment-reply-btn {
+      float: right;
+      margin-top:10px;
+      @include comment-btn
+    }
   }
   .comment-subreply-box{
     padding: 10px 10px 50px 10px;
     margin: 0 20px 10px 30px; 
     border-radius: 5px;
     background: #fff;
+    .comment-reply-btn {
+      float: right;
+      margin-top:10px;
+      @include comment-btn
+    }
   }
-  .comment-reply-btn {
-    float: right;
-    padding: 5px 8px;
-    margin-top:10px;
-    border-radius: 5px;
-    font-size: 15px;
-    line-height: 22px;
-    text-align: center;
-    background: #515a6e;
-    color: #fff;
-    opacity: .8;
-    cursor: pointer;
-  }
-  .comment-content-target {
-    color: #409edd;
+  .comment-sub-list {
+    margin:0 20px 10px 20px;
   }
 </style>

@@ -1,38 +1,35 @@
 <template>
   <div class="article">
-    <div class="detail">
-      <h3 class="detail-title" v-text="articleContent.title"></h3>
-      <div class="detail-meta">
-        <span class="el-icon-date">
-          {{articleContent.date}}
-        </span>
-        <span class="el-icon-view">
-          阅读 10
-        </span>
-        <span class="el-icon-s-comment">
-          评论 {{commentNum}}
-        </span>
-        <span class="el-icon-star-on">
-          赞 {{articleContent.likeNum}}
-        </span>
-      </div>
-      <div class="detail-body" v-html="articleContent.content"></div>
-      <div class="article-like">
-        <el-button type="danger" 
-                   class="article-like" 
-                   @click="likeArticle">
-          {{isLiked ? "取消" : "点赞" }}
-        </el-button>
-      </div>
+    <h3 class="article-title" v-text="articleContent.title"></h3>
+    <div class="article-meta">
+      <span class="el-icon-date">
+        {{articleContent.date}}
+      </span>
+      <span class="el-icon-view">
+        阅读 10
+      </span>
+      <span class="el-icon-s-comment">
+        评论 {{commentNum}}
+      </span>
+      <span class="el-icon-star-on">
+        赞 {{articleContent.likeNum}}
+      </span>
     </div>
-    <div class="comment">
+    <div class="article-body" v-html="articleContent.content"></div>
+    <div class="article-like">
+      <el-button type="danger" 
+                 @click="likeArticle">
+        {{articleContent.isLiked ? "取消" : "点赞" }}
+      </el-button>
+    </div>
+    <div class="article-comment">
       <el-input type="textarea" 
                 placeholder="说点什么吧~" 
                 v-model="textarea"
                 :autosize="{ minRows: 3, maxRows: 4}">
       </el-input>
       <span type="info" 
-            class="add-comment"
+            class="article-comment-btn"
             @click="addComment">
         发表评论
       </span>
@@ -56,7 +53,6 @@ export default {
       commentNum: 0,
       like: 0,
       textarea: '',
-      isLiked: false
     }
   },
   updated(){
@@ -65,8 +61,7 @@ export default {
   methods: {
     commentLength(){
       let commentLength = this.commentList.length
-      const length = this.commentList.length
-      for(let i = 0; i < length; i++){
+      for(let i = 0; i < this.commentList.length; i++){
         const replyLength = this.commentList[i].reply.length
         commentLength += replyLength
       }
@@ -74,12 +69,12 @@ export default {
     },
     likeArticle(){
       if(checkLogin()){
-        if(!this.isLiked){
+        if(!this.articleContent.isLiked){
           this.articleContent.likeNum ++
-          this.isLiked = true
+          this.articleContent.isLiked = true
         }else{
           this.articleContent.likeNum --
-          this.isLiked = false
+          this.articleContent.isLiked = false
         }
       }else{
         this.alert('请先登录')
@@ -125,51 +120,52 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+  @import '../../assets/styles/mixins.scss';
+  @import '../../assets/styles/varibles.scss';
+
   .article {
     padding: 20px 0 60px 0;
+    .article-title {
+      margin: 25px 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .article-meta {
+      padding-bottom: 3px;
+      border-bottom: 1px solid #ddd;
+      font-size: 12px;
+      color: #969696;
+      span {
+        padding-right: 6px;
+      }
+    }
+    .article-body {
+      padding-top: 10px;
+      font-size: 16px;
+      line-height: 30px;
+      text-indent: 2em;
+    }
+    .article-like {
+      margin: 30px 0;
+      text-align: center;
+    }
+    .article-comment {
+      position: relative;
+      padding: 0 10px 45px 10px;
+      .article-comment-btn {
+        position: absolute;
+        right: 30px;
+        bottom: 0px;
+        @include comment-btn
+      }
+    }
   }
-  .detail-title {
-    margin: 25px 0;
-    font-size: 28px;
-    font-weight: 700;
-  }
-  .article-like {
-    margin: 10px 0;
-    text-align: center;
-  }
-  .detail-meta {
-    padding-bottom: 3px;
-    border-bottom: 1px solid #ddd;
-    font-size: 12px;
-    color: #969696;
-  }
-  .detail-meta span {
-    padding-right: 6px;
-  }
-  .detail-body {
-    padding-top: 10px;
-    font-size: 16px;
-    line-height: 30px;
-    text-indent: 2em;
-  }
-  .comment {
-    position: relative;
-    padding: 0 10px 45px 10px;
-  }
-  .add-comment {
-    position: absolute;
-    right: 30px;
-    bottom: 0px;
-    display: block;
-    padding: 5px 8px;
-    border-radius: 5px;
-    font-size: 15px;
-    line-height: 22px;
-    text-align: center;
-    background: #515a6e;
-    color: #fff;
-    opacity: .8;
-    cursor: pointer;
-  }
+  
+  
+
+
+  
+  
 </style>

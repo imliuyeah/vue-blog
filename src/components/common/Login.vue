@@ -1,37 +1,34 @@
 <template>
-  <div>
-    <transition name="fade">
-      <div class="wrapper" v-show="showLoginPage">
-        <div class="login">
-          <span class="login-title">登录</span>
-          <i class="login-close el-icon-close" 
-             title="关闭"
-             @click="handleCloseLogin">
-          </i>
-          <div class="login-input">
-            <el-input v-model="username" 
-                      placeholder="请输入账号:admin"
-                      class="login-input-box">
-            </el-input>
-            <el-input v-model="password" 
-                      placeholder="请输入密码:123"
-                      show-password
-                      class="login-input-box">
-            </el-input>
-            <button class="login-btn" 
-                    @click="login">
-              登录
-            </button>
-          </div>
+  <transition name="fade">
+    <div class="wrapper" v-show="showLoginPage">
+      <div class="login">
+        <span class="login-title">登录</span>
+        <i class="login-close el-icon-close" 
+           title="关闭"
+           @click="handleCloseLogin">
+        </i>
+        <div class="login-input">
+          <el-input v-model="username" 
+                    placeholder="请输入账号:admin"
+                    class="login-input-box">
+          </el-input>
+          <el-input v-model="password" 
+                    placeholder="请输入密码:123"
+                    show-password
+                    class="login-input-box">
+          </el-input>
+          <button class="login-btn" 
+                  @click="handleToLogin">
+            登录
+          </button>
         </div>
       </div>
-    </transition>
-  </div>
+    </div>
+  </transition>
 </template>
 
 <script>
 import axios from 'axios'
-// import api from '../../axios/api'
 import { setCookie, getCookie } from '../../util/util.js'
 import { mapState } from 'vuex'
 
@@ -46,7 +43,7 @@ export default {
     handleCloseLogin(){
       this.$store.commit("closeLoginPage")
     },
-    login(){
+    handleToLogin(){
       if(this.username == ''){
         this.alertLogin('请输入账号') 
       }else if(this.password == ''){
@@ -106,7 +103,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+  @import '../../assets/styles/varibles.scss';
+
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+  .fade-enter-active,
+  .fade-leave-active{
+    transition: opacity .4s ease;
+  }
   .wrapper {
     display: flex;
     align-items: center;
@@ -118,51 +126,39 @@ export default {
     top: 0;
     bottom: 0;
     background-color: rgba(0,0,0,.5);
-  }
-  .login {
-    position: relative;
-    padding: 20px;
-    width: 300px;
-    max-width: 100%;
-    font-size: 1.167rem;
-    background-color: #fff;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  .login-title {
-    display: block;
-    margin-bottom: 25px;
-    font-size: 20px;
-    font-weight: 600;
-  }
-  .login-close {
-    position: absolute;
-    right: 10px;
-    top: 18px;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  .login-input-box {
-    margin-bottom: 10px;
-  }
-  .login-btn {
-    width: 100%;
-    height: 35px;
-    border: none;
-    margin-top: 20px; 
-    color: #fff;
-    background-color: #515a6e;;
-    border-radius: 4px;
-    outline: none;
-    box-sizing: border-box;
-    cursor: pointer;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-  }
-  .fade-enter-active,
-  .fade-leave-active{
-    transition: opacity .4s ease;
+    .login {
+      position: relative;
+      padding: 20px;
+      width: 300px;
+      background-color: #fff;
+      border-radius: 4px;
+      box-sizing: border-box;
+      .login-title {
+        display: block;
+        margin-bottom: 25px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .login-close {
+        position: absolute;
+        right: 10px;
+        top: 18px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .login-input-box {
+        margin-bottom: 15px;
+      }
+      .login-btn {
+        width: 100%;
+        height: 35px;
+        margin-top: 20px; 
+        color: #fff;
+        background-color: $theme-color;
+        border-radius: 4px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
   }
 </style>

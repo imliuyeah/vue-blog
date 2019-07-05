@@ -16,6 +16,7 @@ import {
   Message,
   MessageBox
 } from 'element-ui'
+import './assets/styles/reset.css'
 import './assets/styles/iconfont.css'
 import axios from 'axios'
 import { getCookie } from './util/util.js'

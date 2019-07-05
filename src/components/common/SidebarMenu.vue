@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .sidebar-menu {
     margin-bottom: 8px;
   }
