@@ -51,6 +51,7 @@
 git clone https://github.com/imliuyeah/vue-blog.git
 
 # 安装依赖
+cd vue-blog
 npm install
 
 # 启动项目
