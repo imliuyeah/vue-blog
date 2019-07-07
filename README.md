@@ -29,6 +29,11 @@
 
 ![logout](./images/logout.png)
 
+### 屏幕小于800像素时适配
+
+![mobile](./images/mobile.png)
+
+![mobile](./images/mobile2.png)
   
 ## 技术栈
  + Vue.js：基础框架
