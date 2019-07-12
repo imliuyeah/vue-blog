@@ -30,8 +30,8 @@ export default {
   },
   methods: {
     getArticleList(){
-      axios.get('article.json')
-           .then(this.getArticleSucc)
+      axios.get('/api/article.json')
+      .then(this.getArticleSucc)
     },
      getArticleSucc(res){
       res = res.data

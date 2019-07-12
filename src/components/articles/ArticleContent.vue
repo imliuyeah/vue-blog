@@ -44,8 +44,8 @@ export default {
       const that = this
       const id = this.$route.params.id
       axios.all([
-        axios.get('article.json'),
-        axios.get('comment' + id + '.json') 
+        axios.get('/api/article.json'),
+        axios.get('/api/comment' + id + '.json') 
       ])
       .then(
         axios.spread(function(article, comment){
@@ -70,7 +70,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .wrapper {
-    padding: 0 50px;
+  @media screen and (min-width: 800px){
+    .wrapper {
+      padding: 0 50px;
+    } 
+  }
+  @media screen and (max-width: 800px){
+    .wrapper {
+      padding: 0 10px;
+    } 
   }
 </style>

@@ -57,7 +57,7 @@ export default {
         username: this.username,
         password: this.password
       }
-      axios.post('/login/api', loginParam)
+      axios.post('/login', loginParam)
            .then(res => {
              if(res.data.code == 200){
                const data = res.data

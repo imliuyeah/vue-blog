@@ -62,7 +62,7 @@ export default {
       }
     },
     // 注销登录
-    logout() {
+    logout(){
       this.$messagebox.confirm('是否注销？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -80,7 +80,7 @@ export default {
   computed: {
     ...mapState(['LoginState','userInfo']),
     // 如果已登录则显示昵称，否则显示 登录 字样
-    isLogged: function(){
+    isLogged(){
       const nick = this.userInfo.nick
       return this.LoginState ? nick : "登录"
     } 

@@ -128,11 +128,14 @@ export default {
   .article {
     padding: 20px 0 60px 0;
     .article-title {
+      @include ellipse;
       margin: 25px 0;
       font-size: 28px;
       font-weight: 700;
+      
     }
     .article-meta {
+      @include ellipse;
       padding-bottom: 3px;
       border-bottom: 1px solid #ddd;
       font-size: 12px;

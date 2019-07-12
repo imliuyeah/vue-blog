@@ -229,6 +229,7 @@ export default {
       }
     }
     .comment-info {
+      @include ellipse;
       height: 30px;
       line-height: 15px;
       .comment-info-name {
@@ -242,6 +243,7 @@ export default {
     }
   }
   .comment-content {
+    @include ellipse;
     height: 30px;
     word-break: break-word;
     line-height: 28px;
@@ -250,6 +252,7 @@ export default {
     }
   }
   .comment-footer {
+    @include ellipse;
     color: #99a2aa;
     line-height: 26px;
     font-size: 12px;

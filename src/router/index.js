@@ -10,7 +10,7 @@ import ArticleContent from '../components/articles/ArticleContent.vue'
 
 Vue.use(VueRouter)
 
-axios.defaults.baseURL = '/static/mock';
+// axios.defaults.baseURL = '/static/mock';
 
 const router = new VueRouter({
   routes: [
