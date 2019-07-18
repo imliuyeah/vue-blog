@@ -19,4 +19,4 @@ const loginByUsername = function(options){
   }
 }
 
-Mock.mock('/login', 'post', loginByUsername)
+Mock.mock('/static/mock/login', 'post', loginByUsername)

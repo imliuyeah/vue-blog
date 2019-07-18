@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getArticle(){
-      axios.get('/api/archive.json')
+      axios.get('/archive.json')
            .then(this.getArticleSucc)
     },
     getArticleSucc(res){

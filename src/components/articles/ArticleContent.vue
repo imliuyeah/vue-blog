@@ -44,8 +44,8 @@ export default {
       const that = this
       const id = this.$route.params.id
       axios.all([
-        axios.get('/api/article.json'),
-        axios.get('/api/comment' + id + '.json') 
+        axios.get('/article.json'),
+        axios.get('/comment' + id + '.json') 
       ])
       .then(
         axios.spread(function(article, comment){
