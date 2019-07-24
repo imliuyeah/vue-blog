@@ -16,3 +16,85 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+@mixin slideIn($delayTime) {
+  opacity: 0;
+  -webkit-transition:transform 0.8s ease-in-out;
+	   -moz-transition:transform 0.8s ease-in-out;
+	    -ms-transition:transform 0.8s ease-in-out;
+	     -o-transition:transform 0.8s ease-in-out;
+	        transition:transform 0.8s ease-in-out;
+  -webkit-animation:slideIn 1s ease-in-out $delayTime forwards;
+	   -moz-animation:slideIn 1s ease-in-out $delayTime forwards; 
+	     -o-animation:slideIn 1s ease-in-out $delayTime forwards;
+	    -ms-animation:slideIn 1s ease-in-out $delayTime forwards;
+          animation:slideIn 1s ease-in-out $delayTime forwards;
+  @-webkit-keyframes slideIn{
+    from{
+      opacity: 0;
+      transform: translateX(10%);
+    }
+    to{
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+  @keyframes slideIn{
+    from{
+      opacity: 0;
+      transform: translateX(10%);
+    }
+    to{
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+}
+
+@mixin typing(){
+  width: 15em;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid transparent;
+  animation: typing 3.5s steps(15, end), blink-caret .75s step-end 7;
+  @keyframes typing {
+    from { 
+      width: 0; 
+    }
+    to { 
+      width: 15em; 
+    }
+  }
+  @keyframes blink-caret {
+    from, to { 
+      box-shadow: 1px 0 0 0 transparent; 
+    }
+    50% { 
+      box-shadow: 1px 0 0 0; 
+    }
+  }
+}
+
+@mixin expend($fromHeight, $toHeight){
+  -webkit-animation:expand 2s ease-in-out 4s forwards;
+	   -moz-animation:expand 2s ease-in-out 4s forwards; 
+	     -o-animation:expand 2s ease-in-out 4s forwards;
+	    -ms-animation:expand 2s ease-in-out 4s forwards;
+          animation:expand 2s ease-in-out 4s forwards;
+  @-webkit-keyframes expand{
+    from{
+      max-height: $fromHeight;
+    }
+    to{
+      max-height: $toHeight;
+    }
+  }
+  @keyframes expand{
+    from{
+      max-height: $fromHeight;
+    }
+    to{
+      max-height: $toHeight;
+    }
+  }
+}
