@@ -36,9 +36,18 @@ export default {
     .banner {
       display: flex;
       align-items: flex-start;
-      height: 1000px;
+      height: auto;
       padding: 0 10%;
     } 
   }
+  @media screen and (max-width: 800px){
+    .message-box-logout {
+      width: 200px;
+    }
+    .el-message {
+      min-width: 200px;
+    }
+  }
+  
 </style>
 

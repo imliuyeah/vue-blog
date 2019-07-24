@@ -66,7 +66,8 @@ export default {
       this.$messagebox.confirm('是否注销？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
+        customClass: "message-box-logout"
       }).then(() => {
         delCookie('session')
         this.$store.commit("changeLoginState", false)

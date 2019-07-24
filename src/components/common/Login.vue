@@ -81,19 +81,22 @@ export default {
     successLogin(){
       this.$message.success({
           message: '登录成功！',
-          duration: 2000
+          duration: 2000,
+          customClass: "element-message"
       });
     },
     failedLogin(){
       this.$message.error({
           message:'登录失败！账号或密码错误',
-          duration: 2000
+          duration: 2000,
+          customClass: "element-message"
       });
     },
     alertLogin(msg){
       this.$message.warning({
           message: msg,
-          duration: 2000
+          duration: 2000,
+          customClass: "element-message"
       });
     }
   },
@@ -159,6 +162,11 @@ export default {
         font-size: 18px;
         cursor: pointer;
       }
+    }
+  }
+  @media screen and (max-width: 800px){
+    .login {
+      transform: scale(.8)
     }
   }
 </style>

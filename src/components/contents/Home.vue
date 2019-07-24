@@ -6,7 +6,8 @@
     <div class="wrapper">
       <div class="info about">
         <h3 class="title about-title" @click="showAbout">关于我</h3>
-        <i class="el-icon-arrow-down"></i>
+        <i class="el-icon-arrow-up" v-if="showAboutContent"></i>
+        <i class="el-icon-arrow-down" v-else></i>
         <transition>
           <p class="content about-content" v-show="showAboutContent">
             我叫柳烨，23岁，毕业于中南林业科技大学，曾经是一名景观设计师，现如今正在前端修炼之路上摸爬滚打。<br>
@@ -16,7 +17,8 @@
       </div>
       <div class="info why">
         <h3 class="title why-title" @click="showwhy">为什么选择前端</h3>
-        <i class="el-icon-arrow-down"></i>
+        <i class="el-icon-arrow-up" v-if="showWhyContent"></i>
+        <i class="el-icon-arrow-down" v-else></i>
         <transition>
           <p class="content why-content" v-show="showWhyContent">
             2018年，我在一个小规模的景观公司任职，虽然领着一份还不错的薪水，但却总是感到迷茫；<br>
@@ -29,7 +31,8 @@
       </div>
       <div class="info dream">
         <h3 class="title dream-title" @click="showDream">我的梦想</h3>
-        <i class="el-icon-arrow-down"></i>
+        <i class="el-icon-arrow-up" v-if="showDreamContent"></i>
+        <i class="el-icon-arrow-down" v-else></i>
         <transition>
           <p class="content dream-content" v-show="showDreamContent">
             梦想总是要有的，万一实现了呢？<br>
@@ -82,7 +85,7 @@ export default {
     transition: all .8s ease;
   }
   .home {
-    padding: 0 20px 10px 0;
+    padding: 0 20px 20px 20px;
     background: #fff;
     box-shadow: $home-shadow;
     border-radius: 6px;
@@ -97,7 +100,7 @@ export default {
     .wrapper{
       max-height: 0;
       // padding-bottom: 80px;
-      @include expend(20px, 600px);
+      @include expend(20px, 1000px);
       .info{
         padding: 20px 10px 0 10px;
         .title{
@@ -106,7 +109,8 @@ export default {
           border-bottom: 1px solid #ddd;
           font-size: 18px;
         }
-        .el-icon-arrow-down {
+        .el-icon-arrow-down,
+        .el-icon-arrow-up{
           position: absolute;
           top: 20px;
           right: 50px;
@@ -130,5 +134,15 @@ export default {
       }
     }
   }
-
+  @media screen and (max-width: 800px){
+    .home {
+      padding: 5px;
+    }
+    .typing {
+      font-size: 14px !important;
+    }
+    .title {
+      font-size: 16px !important;
+    }
+  }
 </style>
